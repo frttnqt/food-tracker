@@ -1,0 +1,21 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.2",
+    "title": "food-tracker API",
+    "contact": {
+      "email": "a.shilov.by@gmail.com"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+  },
+  "definitions": {
+  }
+}

@@ -16,7 +16,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "concurrently": "^4.1.2"
+    "concurrently": "^4.1.2",
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "extends": [
     "tslint:recommended",
