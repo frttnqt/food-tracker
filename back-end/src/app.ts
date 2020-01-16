@@ -2,6 +2,7 @@ import 'module-alias/register';
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import UserRoutes from './routes/user';
 import { keys } from './config';
 // @ts-ignore
 import swaggerUi from 'swagger-ui-express';
@@ -19,7 +20,7 @@ export class App {
 	private setAppConfig(): void {
 		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({ extended: true }));
-		// this.app.use('/api/v1', IndexRoute);
+		this.app.use('/api/v1', UserRoutes);
 		this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 	}
 
