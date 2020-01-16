@@ -24,7 +24,7 @@
     "tslint-config-prettier"
   ],
   "lint-staged": {
-    "*.{tsx, ts}": [
+    "*.ts": [
       "prettier --write",
       "git add"
     ]
