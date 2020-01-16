@@ -1,0 +1,38 @@
+{
+  "name": "food-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "husky": "^4.0.10",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "tslint": "^5.20.1"
+  },
+  "scripts": {
+    "server": "npm run dev --prefix back-end",
+    "client": "npm run start --prefix front-end",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "concurrently": "^4.1.2"
+  },
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier"
+  ],
+  "lint-staged": {
+    "*.{tsx, ts}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "author": "",
+  "license": "ISC"
+}
