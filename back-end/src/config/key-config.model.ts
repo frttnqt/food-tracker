@@ -1,3 +1,4 @@
 export interface IKeyConfig {
-  mongoURI: string;
+	mongoURI: string;
+	jsonWebTokenKey: string;
 }

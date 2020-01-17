@@ -1,5 +1,5 @@
 import { IUser, User, UserModel } from '@src/models';
-import keys from '@src/config/dev';
+import { keys } from '@src/config';
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
