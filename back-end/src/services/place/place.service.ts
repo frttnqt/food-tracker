@@ -6,16 +6,18 @@ export class PlaceService {
 		return await Place.create(place);
 	}
 
-	public static async getPlace(name: string): Promise<PlaceModel | null> {
-		return await Place.findOne({ name });
+	public static async getPlace(placeId: string): Promise<PlaceModel | null> {
+		return await Place.findById(placeId);
 	}
 
 	public static async getPlaceList(req: Request, res: Response): Promise<void> {}
 
-	public static async updatePlace(req: Request, res: Response): Promise<void> {}
+	public static async updatePlace(place: IPlace, placeId: string): Promise<PlaceModel | null> {
+		return await Place.findByIdAndUpdate(placeId, place, { new: true });
+	}
 
-	public static async removePlace(name: string): Promise<void> {
-		const place = await Place.findOneAndDelete({ name });
-		await Position.deleteMany({ place: place?._id });
+	public static async removePlace(placeId: string): Promise<void> {
+		const place = await Place.findByIdAndDelete(placeId);
+		await Position.deleteMany({ place: place?.id });
 	}
 }

@@ -25,6 +25,11 @@ export class App {
 	}
 
 	private setDatabases(): void {
-		mongoose.connect(keys.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true });
+		mongoose.connect(keys.mongoURI, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true,
+			useCreateIndex: true,
+			useFindAndModify: false
+		});
 	}
 }
