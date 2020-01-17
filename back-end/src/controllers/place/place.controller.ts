@@ -24,5 +24,12 @@ export class PlaceController {
 
 	public static async updatePlace(req: Request, res: Response): Promise<void> {}
 
-	public static async removePlace(req: Request, res: Response): Promise<void> {}
+	public static async removePlace(req: Request, res: Response): Promise<void> {
+		try {
+			await PlaceService.removePlace(req.params.name);
+			res.sendStatus(200);
+		} catch {
+			res.sendStatus(400);
+		}
+	}
 }

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IPlace, Place, PlaceModel } from '@src/models';
+import { IPlace, Place, PlaceModel, Position } from '@src/models';
 
 export class PlaceService {
 	public static async addPlace(place: IPlace): Promise<PlaceModel> {
@@ -14,5 +14,8 @@ export class PlaceService {
 
 	public static async updatePlace(req: Request, res: Response): Promise<void> {}
 
-	public static async removePlace(req: Request, res: Response): Promise<void> {}
+	public static async removePlace(name: string): Promise<void> {
+		const place = await Place.findOneAndDelete({ name });
+		await Position.deleteMany({ place: place?._id });
+	}
 }
