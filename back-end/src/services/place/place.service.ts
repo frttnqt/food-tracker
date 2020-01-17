@@ -6,7 +6,9 @@ export class PlaceService {
 		return await Place.create(place);
 	}
 
-	public static async getPlace(req: Request, res: Response): Promise<void> {}
+	public static async getPlace(name: string): Promise<PlaceModel | null> {
+		return await Place.findOne({ name });
+	}
 
 	public static async getPlaceList(req: Request, res: Response): Promise<void> {}
 

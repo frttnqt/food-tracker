@@ -7,6 +7,12 @@ export interface IUser {
 	password: string;
 }
 
+export interface UserPublicData {
+	email: string;
+	firstName: string;
+	lastName: string;
+}
+
 export interface UserModel extends IUser, Document {}
 
 const UserSchema: Schema = new Schema({
