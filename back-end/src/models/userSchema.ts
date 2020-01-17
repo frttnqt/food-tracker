@@ -16,4 +16,8 @@ const UserSchema: Schema = new Schema({
 	password: { type: String, required: true }
 });
 
+UserSchema.methods.getInfo = function() {
+	return this.set({ password: null });
+};
+
 export const User = mongoose.model<UserModel>('User', UserSchema);
