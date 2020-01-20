@@ -29,4 +29,13 @@ export class UserController {
 			res.sendStatus(400);
 		}
 	}
+
+	public static async deleteUser(req: Request, res: Response): Promise<void> {
+		try {
+			await UserService.deleteUser(req.params?.id, req.headers.authorization);
+			res.sendStatus(200);
+		} catch {
+			res.sendStatus(400);
+		}
+	}
 }

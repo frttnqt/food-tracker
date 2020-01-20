@@ -1,4 +1,4 @@
-import { IUser, User, UserModel, UserPublicData } from '@src/models';
+import { IUser, Order, User, UserModel, UserPublicData } from '@src/models';
 import { keys } from '@src/config';
 
 const jwt = require('jsonwebtoken');
@@ -22,11 +22,22 @@ export class UserService {
 
 	public static async updateUser(user: UserModel, token: string | undefined): Promise<UserModel> {
 		return jwt.verify(token, keys.jsonWebTokenKey, { id: user.id }, async (err: Error, decoded: UserPublicData) => {
-			const dbUser = await User.findByIdAndUpdate(decoded.id, {
-				...user,
-				password: await bcrypt.hash(user.password, saltRounds)
-			});
-			return dbUser ? dbUser : null;
+			if (decoded) {
+				const dbUser = await User.findByIdAndUpdate(decoded.id, {
+					...user,
+					password: await bcrypt.hash(user.password, saltRounds)
+				});
+				return dbUser ? dbUser : null;
+			}
+		});
+	}
+
+	public static async deleteUser(userId: string, token: string | undefined): Promise<void> {
+		jwt.verify(token, keys.jsonWebTokenKey, { id: userId }, async (err: Error, decoded: UserPublicData) => {
+			if (decoded) {
+				await User.findByIdAndDelete(userId);
+				await Order.deleteMany({ userId });
+			}
 		});
 	}
 
