@@ -1,5 +1,4 @@
-import { Request, Response } from 'express';
-import { IPlace, Place, PlaceModel, Position, Location } from '@src/models';
+import { Location, Order } from '@src/models';
 import { ILocation, LocationModel } from '@src/models/locationSchema';
 
 export class LocationService {
@@ -7,18 +6,16 @@ export class LocationService {
 		return await Location.create(location);
 	}
 
-	public static async getPlace(placeId: string): Promise<PlaceModel | null> {
-		return await Place.findById(placeId);
+	public static async getLocationList(): Promise<LocationModel[]> {
+		return await Location.find({});
 	}
 
-	public static async getPlaceList(req: Request, res: Response): Promise<void> {}
-
-	public static async updatePlace(place: IPlace, placeId: string): Promise<PlaceModel | null> {
-		return await Place.findByIdAndUpdate(placeId, place, { new: true });
+	public static async updateLocation(location: ILocation, locationId: string): Promise<LocationModel | null> {
+		return await Location.findByIdAndUpdate(locationId, location, { new: true });
 	}
 
-	public static async removePlace(placeId: string): Promise<void> {
-		const place = await Place.findByIdAndDelete(placeId);
-		await Position.deleteMany({ place: place?.id });
+	public static async deleteLocation(locationId: string): Promise<void> {
+		await Location.findByIdAndDelete(locationId);
+		await Order.deleteMany({ locationId });
 	}
 }
