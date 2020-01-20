@@ -1,17 +1,19 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IOrder {
-	user: string;
 	positions: string[];
 	date: Date;
+	userId: string;
+	locationId: string;
 }
 
 export interface OrderModel extends IOrder, Document {}
 
 const OrderSchema: Schema = new Schema({
-	user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 	positions: [{ type: Schema.Types.ObjectId, ref: 'Position', required: true }],
-	date: { type: Schema.Types.Date, required: true }
+	date: { type: Schema.Types.Date, required: true },
+	userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+	locationId: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
 export const Order = mongoose.model<OrderModel>('Order', OrderSchema);
