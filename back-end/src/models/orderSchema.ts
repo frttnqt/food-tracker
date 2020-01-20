@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IOrder {
-	positions: string[];
+	positionIds: string[];
 	date: Date;
 	userId: string;
 	locationId: string;
@@ -10,7 +10,7 @@ export interface IOrder {
 export interface OrderModel extends IOrder, Document {}
 
 const OrderSchema: Schema = new Schema({
-	positions: [{ type: Schema.Types.ObjectId, ref: 'Position', required: true }],
+	positionIds: [{ type: Schema.Types.ObjectId, ref: 'Position', required: true }],
 	date: { type: Schema.Types.Date, required: true },
 	userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 	locationId: { type: Schema.Types.ObjectId, ref: 'User', required: true }
