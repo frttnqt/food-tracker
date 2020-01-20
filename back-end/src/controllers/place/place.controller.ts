@@ -20,7 +20,14 @@ export class PlaceController {
 		}
 	}
 
-	public static async getPlaceList(req: Request, res: Response): Promise<void> {}
+	public static async getPlaceList(req: Request, res: Response): Promise<void> {
+		try {
+			const placeList = await PlaceService.getPlaceList();
+			res.status(200).send({ placeList });
+		} catch {
+			res.sendStatus(400);
+		}
+	}
 
 	public static async updatePlace(req: Request, res: Response): Promise<void> {
 		try {

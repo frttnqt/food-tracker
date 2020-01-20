@@ -20,7 +20,7 @@ export class PositionService {
 	}
 
 	public static async updatePositions(positions: IPositionList): Promise<PositionModel[]> {
-		const bulkWriteCondition = positions.items.map(item => ({ updateOne: { update: item } }));
+		const bulkWriteCondition = positions.items.map(item => ({ replaceOne: { update: item } }));
 		return (await Position.bulkWrite([bulkWriteCondition])).result;
 	}
 

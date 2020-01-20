@@ -10,8 +10,8 @@ export interface IOrder {
 export interface OrderModel extends IOrder, Document {}
 
 const OrderSchema: Schema = new Schema({
-	positionIds: [{ type: Schema.Types.ObjectId, ref: 'Position', required: true }],
 	date: { type: Schema.Types.Date, required: true },
+	positionIds: [{ type: Schema.Types.ObjectId, ref: 'Position', required: true }],
 	userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 	locationId: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });

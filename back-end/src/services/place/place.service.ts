@@ -10,7 +10,9 @@ export class PlaceService {
 		return await Place.findById(placeId);
 	}
 
-	public static async getPlaceList(req: Request, res: Response): Promise<void> {}
+	public static async getPlaceList(): Promise<PlaceModel[]> {
+		return await Place.find({});
+	}
 
 	public static async updatePlace(place: IPlace, placeId: string): Promise<PlaceModel | null> {
 		return await Place.findByIdAndUpdate(placeId, place, { new: true });
