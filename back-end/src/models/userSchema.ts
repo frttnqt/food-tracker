@@ -12,6 +12,7 @@ export interface UserPublicData {
 	email: string;
 	firstName: string;
 	lastName: string;
+	id: string;
 }
 
 export interface UserModel extends IUser, Document {}

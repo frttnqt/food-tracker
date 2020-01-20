@@ -6,37 +6,37 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 export class UserService {
-	public static async createUser(userData: IUser): Promise<UserPublicData> {
-		const user = await User.create({
+	public static async createUser(userData: IUser): Promise<UserModel> {
+		return await User.create({
 			...userData,
 			password: await bcrypt.hash(userData.password, saltRounds)
 		});
-		return this.getUserInfo(user);
 	}
 
-	public static async login(user: IUser): Promise<UserPublicData | null> {
+	public static async login(user: IUser): Promise<UserModel | null> {
 		const dbUser = await User.findOne({
 			email: user.email
 		});
-		return (await bcrypt.compare(user.password, dbUser?.password)) && dbUser ? this.getUserInfo(dbUser) : null;
+		return (await bcrypt.compare(user.password, dbUser?.password)) && dbUser ? dbUser : null;
 	}
 
-	public static getUserInfo(user: UserModel): UserPublicData {
-		return {
-			email: user.email,
-			firstName: user.firstName,
-			lastName: user.lastName
-		};
+	public static async updateUser(user: UserModel, token: string | undefined): Promise<UserModel> {
+		return jwt.verify(token, keys.jsonWebTokenKey, { id: user.id }, async (err: Error, decoded: UserPublicData) => {
+			const dbUser = await User.findByIdAndUpdate(decoded.id, {
+				...user,
+				password: await bcrypt.hash(user.password, saltRounds)
+			});
+			return dbUser ? dbUser : null;
+		});
 	}
 
-	public static getJSONWebToken(user: UserPublicData): string {
+	public static getJSONWebToken(user: UserModel): string {
 		return jwt.sign(
 			{
-				data: {
-					email: user.email,
-					firstName: user.firstName,
-					lastName: user.lastName
-				}
+				email: user.email,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				id: user.id
 			},
 			keys.jsonWebTokenKey,
 			{ algorithm: 'HS512' }
