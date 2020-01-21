@@ -1,21 +1,24 @@
-import { Location, Order } from '@src/models';
+import { IOrder, Location, Order, OrderModel } from '@src/models';
 import { ILocation, LocationModel } from '@src/models/locationSchema';
 
 export class OrderService {
-	public static async createLocation(location: ILocation): Promise<LocationModel> {
-		return await Location.create(location);
+	public static async createOrder(order: IOrder): Promise<OrderModel> {
+		return await Order.create(order);
 	}
 
-	public static async getLocationList(): Promise<LocationModel[]> {
-		return await Location.find({});
+	public static async getOrder(orderId: string): Promise<OrderModel | null> {
+		return await Order.findById(orderId);
 	}
 
-	public static async updateLocation(location: ILocation, locationId: string): Promise<LocationModel | null> {
-		return await Location.findByIdAndUpdate(locationId, location, { new: true });
+	public static async getOrderList(userId: string, date: Date): Promise<OrderModel[]> {
+		return await Order.find({ userId, date });
 	}
 
-	public static async deleteLocation(locationId: string): Promise<void> {
-		await Location.findByIdAndDelete(locationId);
-		await Order.deleteMany({ locationId });
+	public static async updateOrder(orderId: string, orderData: IOrder): Promise<OrderModel | null> {
+		return await Order.findByIdAndUpdate(orderId, orderData, { new: true });
+	}
+
+	public static async deleteOrder(orderId: string): Promise<void> {
+		await Order.findOneAndDelete(orderId);
 	}
 }

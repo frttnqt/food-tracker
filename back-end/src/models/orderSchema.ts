@@ -1,8 +1,8 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IOrder {
-	positionIds: string[];
 	date: Date;
+	positionIds: string[];
 	userId: string;
 	locationId: string;
 }
