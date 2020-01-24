@@ -2,8 +2,6 @@ import { LocationController } from '@src/controllers';
 import { LocationService } from '@src/services/location';
 import * as httpMocks from 'node-mocks-http';
 
-jest.mock('@src/services/location');
-
 describe('<LocationController>', () => {
 	test('<createLocation> success', async () => {
 		jest.spyOn(LocationService, 'createLocation').mockReturnValue({ a: 1 } as any);
