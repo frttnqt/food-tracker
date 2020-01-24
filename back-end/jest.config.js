@@ -7,7 +7,7 @@ module.exports = {
   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
   collectCoverage: true,
   clearMocks: true,
-  coverageDirectory: "coverage",
+  testEnvironment: 'node',
   "moduleNameMapper": {
     "^@src/(.*)$": "<rootDir>/src/$1"
   }
